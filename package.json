@@ -10,7 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "nyc riteway -r @babel/register -r @babel/polyfill 'src/**/*.test.js' | tap-nirvana",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -27,5 +27,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/register": "^7.6.2",
+    "nyc": "^14.1.1",
+    "riteway": "^6.1.0",
+    "tap-nirvana": "^1.1.0"
   }
 }

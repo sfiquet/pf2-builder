@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import data from './data';
-import MonsterProfile from './MonsterProfile';
-import './MonsterBuilder.css';
+import data from '../../data/data';
+import MonsterProfile from '../MonsterProfile/MonsterProfile';
 
 class MonsterBuilder extends Component {
   constructor(props){

@@ -19,3 +19,8 @@ code {
 #root {
   height: 100%;
 }
+
+/* Component-Specific classes */
+.MonsterBuilder-legend {
+  font-size: 1em;
+}
