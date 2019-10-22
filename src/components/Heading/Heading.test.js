@@ -80,4 +80,30 @@ describe('Heading component', async assert => {
       expected: text
     }); 
   }
+
+  {
+    const level = 3;
+    const text = 'Title';
+    const className = 'MyFirstClass MySecondClass';
+    const $ = render(<Heading level={level} className={className}>{text}</Heading>);
+    assert({
+      given: 'a valid level, a title and a className string',
+      should: 'apply the className string to the heading element',
+      actual: $('h3').hasClass('MyFirstClass'),
+      expected: true
+    }); 
+  }
+
+  {
+    const level = 3;
+    const text = 'Title';
+    const className = 'MyFirstClass MySecondClass';
+    const $ = render(<Heading level={level} className={className}>{text}</Heading>);
+    assert({
+      given: 'a valid level, a title and a className string',
+      should: 'apply the className string to the heading element',
+      actual: $('h3').hasClass('MySecondClass'),
+      expected: true
+    }); 
+  }
 });

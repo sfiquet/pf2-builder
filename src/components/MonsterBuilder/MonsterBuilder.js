@@ -154,7 +154,7 @@ class MonsterBuilder extends Component {
             </fieldset>
           </form>
           <output form="monsterInput" className="col-12 col-md-6 d-block border rounded py-2 mb-2">
-            <MonsterProfile monster={this.state} />
+            <MonsterProfile monster={this.state} level={3} />
           </output>
         </div>
       </Fragment>

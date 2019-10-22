@@ -24,3 +24,23 @@ code {
 .MonsterBuilder-legend {
   font-size: 1em;
 }
+
+.MonsterProfile-list {
+  display: inline;
+  list-style: none;
+  padding: 0;
+}
+.MonsterProfile-list-item {
+  display: inline;
+}
+.MonsterProfile-list-item:after {
+  content: ", ";
+}
+.MonsterProfile-list-item:last-child:after {
+  content: "";
+}
+
+.ProfileEntry-title {
+  font-size: 1em;
+  font-weight: bold;
+}
