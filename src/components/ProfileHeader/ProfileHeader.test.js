@@ -66,4 +66,15 @@ describe('ProfileHeader component', async assert => {
       expected: `Creature ${level}`
     });
   }
+
+  {
+    const level = 'garbage';
+    const $ = render(<ProfileHeader level={level}/>);
+    assert({
+      given: 'level not a number',
+      should: 'render the default level',
+      actual: $('.ProfileHeader-level').text(),
+      expected: 'Level'
+    });
+  }
 });
