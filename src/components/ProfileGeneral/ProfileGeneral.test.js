@@ -123,7 +123,7 @@ describe('ProfileGeneral component', async assert => {
       given: 'a monster with perception',
       should: 'render a perception entry with title and formatted value',
       actual: $('.ProfileGeneral-perception').text(),
-      expected: 'Perception' + `+${monster.perception}`
+      expected: ['Perception', `+${monster.perception}`].join('')
     });
   }
 
@@ -134,7 +134,7 @@ describe('ProfileGeneral component', async assert => {
       given: 'a monster with ability modifiers',
       should: 'render an ability modifiers entry with titles and formatted values',
       actual: $('.ProfileGeneral-abilities').text(),
-      expected: 'Ability Modifiers' + 'Str' + '0' + 'Dex' + '+1' + 'Con' + '+2' + 'Int' + '-1' + 'Wis' + '-2' + 'Cha' + '-3'
+      expected: ['Ability Modifiers', 'Str', '0', 'Dex', '+1', 'Con', '+2', 'Int', '-1', 'Wis', '-2', 'Cha', '-3'].join('')
     });
   }
 });

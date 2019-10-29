@@ -1,5 +1,5 @@
 import React from 'react';
-import MonsterBuilder from '../MonsterBuilder/MonsterBuilder';
+import MonsterBuilder from '../MonsterBuilder';
 
 function App() {
   return (

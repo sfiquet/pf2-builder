@@ -3,10 +3,11 @@ import format from './format';
 
 describe('format', async assert => {
   {
+    const noargs = undefined;
     assert({
       given: 'no arguments',
       should: 'return undefined',
-      actual: format(),
+      actual: format(noargs),
       expected: undefined
     });
   }

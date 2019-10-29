@@ -10,7 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "nyc riteway -r @babel/register -r @babel/polyfill 'src/**/*.test.js' | tap-nirvana",
+    "test": "eslint 'src/**/*.test.js' && nyc riteway -r @babel/register -r @babel/polyfill 'src/**/*.test.js' | tap-nirvana",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
