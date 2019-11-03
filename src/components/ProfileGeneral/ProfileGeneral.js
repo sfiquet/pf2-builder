@@ -1,6 +1,6 @@
 import React from 'react';
 import format from '../../lib/format';
-import Heading from '../Heading/Heading';
+import Heading from '../UI/Heading/Heading';
 import ProfileEntry from '../ProfileEntry/ProfileEntry';
 
 /*

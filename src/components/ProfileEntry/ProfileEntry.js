@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../Heading/Heading';
+import Heading from '../UI/Heading/Heading';
 
 const ProfileEntry = ({ level, content, className }) => {
   if (!content){

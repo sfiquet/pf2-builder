@@ -1,6 +1,6 @@
 import React from 'react';
 import data from '../../data/data';
-import Heading from '../Heading/Heading';
+import Heading from '../UI/Heading/Heading';
 
 const MonsterBuilderForm = ({monster, level, onChange}) => {
 
