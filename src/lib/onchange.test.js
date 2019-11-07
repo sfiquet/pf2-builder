@@ -1,7 +1,7 @@
 import {describe} from 'riteway';
 import getOnChangeArgs from './onchange';
 
-describe('convertevent', async assert => {
+describe('getOnChangeArgs', async assert => {
   {
     const noargs = undefined;
     assert({
