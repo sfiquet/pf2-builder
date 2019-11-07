@@ -44,3 +44,11 @@ code {
   font-size: 1em;
   font-weight: bold;
 }
+
+.TreeSelect-indent1 {
+  padding-left: 1.5rem;
+}
+
+.TreeSelect-indent2 {
+  padding-left: 3rem;
+}

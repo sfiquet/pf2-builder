@@ -1,32 +1,26 @@
 import React from 'react';
-import data from '../../data/data';
+import data, {getTraitIdsByType} from '../../data/data';
 import Heading from '../UI/Heading/Heading';
+import TreeSelect from '../UI/TreeSelect/TreeSelect';
 
 const MonsterBuilderForm = ({monster, level, onChange}) => {
-
-  const buildCheckboxArray = (itemArray, idPrefix) => {
-    return itemArray.map(item => (
-      <div className="form-check" key={item}>
-        <input className="form-check-input" type="checkbox" name={item} id={`${idPrefix}_${item}`} checked={monster[item]} onChange={onChange} />
-        <label className="form-check-label" htmlFor={`${idPrefix}_${item}`}>
-          {item}
-        </label>
-      </div>
-    ));
-  };
 
   if (!monster){
     monster = {};
   }
 
-//  const roadmapOptions = Object.keys(data.roadmaps).map(item => (<option key={item} value={item}>{item}</option>));
+  const getTreeForTraitType = (type) => getTraitIdsByType(type).map(item => ({
+    ...data.traits.byId[item],
+    name: item, 
+    isSelected: monster[item], 
+  }));
+
   const alignmentOptions = data.alignments.map(item => (<option key={item} value={item}>{item}</option>));
   const sizeOptions = data.sizes.map(item => (<option key={item} value={item}>{item}</option>));
-  const typeOptions = data.typeTraits.map(item => (<option key={item} value={item}>{item}</option>));
 
-  const energyOptions = buildCheckboxArray(data.energyTraits, 'trait');
-  const categoryOptions = buildCheckboxArray(data.categoryTraits, 'trait');
-  const physicalOptions = buildCheckboxArray(data.physicalTraits, 'trait');
+  const typeOptions = getTreeForTraitType('monsterType');
+  const energyOptions = getTreeForTraitType('powerSource');
+  const physicalOptions = getTreeForTraitType('physical');
 
   return (
     <form id="monsterInput" className="MonsterBuilderForm col-12 col-md-6 border rounded pt-2 pb-3 mb-2">
@@ -45,22 +39,12 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
           <textarea id="concept-notes" className="form-control" aria-describedby="concept-notes-desc" value={monster.conceptNotes} name="conceptNotes" onChange={onChange}></textarea>
           <p className="form-control-desc" id="concept-notes-desc">Use this space to jot down your thoughts on the core concept</p>
         </div>
-
-      {/*
-        <div className="form-group">
-          <label htmlFor="roadmap-select">Base Roadmap</label>
-          <select id="roadmap-select" className="form-control">
-            {roadmapOptions}
-          </select>
-        </div>
-      */}
-
       </section>
 
       <section className="General">
         <Heading className="Section-title" level={level}>General</Heading>
 
-      {/* level, alignment and size */}
+        {/* level, alignment and size */}
         <div className="form-row">
           <div className="col-12 col-sm-3">
             <div className="form-group row">
@@ -94,28 +78,10 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
           </div>
         </div>
 
-      {/* traits */}
-        <div className="form-group">
-          <label htmlFor="type-select">Traits: Type</label>
-          <select id="type-select" className="form-control" value={monster.type} name="type" onChange={onChange}>
-            {typeOptions}
-          </select>
-        </div>
-
-        <fieldset className="form-group">
-          <legend className="MonsterBuilder-legend">Element & Energy Traits:</legend>
-          {energyOptions}
-        </fieldset>
-
-        <fieldset className="form-group">
-          <legend className="MonsterBuilder-legend">Category Traits:</legend>
-          {categoryOptions}
-        </fieldset>
-
-        <fieldset className="form-group">
-          <legend className="MonsterBuilder-legend">Physical & Mental Traits:</legend>
-          {physicalOptions}
-        </fieldset>
+        {/* traits */}
+        <TreeSelect treeNodes={typeOptions} title="Type Traits:" idPrefix="type" onChange={onChange}/>
+        <TreeSelect treeNodes={energyOptions} title="Element & Energy Traits:" idPrefix="energy" onChange={onChange}/>
+        <TreeSelect treeNodes={physicalOptions} title="Physical & Mental Traits:" idPrefix="physical" onChange={onChange}/>
 
       </section>
 
