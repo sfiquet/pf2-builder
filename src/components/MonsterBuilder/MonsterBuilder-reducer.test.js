@@ -1,5 +1,6 @@
 import {describe} from 'riteway';
-import {reducer, changeInput} from './MonsterBuilder-reducer';
+import {changeInput} from './actions';
+import reducer from './MonsterBuilder-reducer';
 
 describe('MonsterBuilder reducer', async assert => {
   const initialState = {
@@ -7,32 +8,7 @@ describe('MonsterBuilder reducer', async assert => {
     level: 0,
     alignment: 'N',
     size: 'Medium',
-    type: 'humanoid',
     traits: [],
-    'aeon': false,
-    'acid': false,
-    'air': false,
-    'angel': false,
-    'archon': false,
-    'azata': false,
-    'cold': false,
-    'daemon': false,
-    'demon': false,
-    'devil': false,
-    'earth': false,
-    'electricity': false,
-    'fire': false,
-    'inevitable': false,
-    'protean': false,
-    'psychopomp': false,
-    'rakshasa': false,
-    'spirit': false,
-    'swarm': false,
-    'water': false,
-    'amphibious': false,
-    'aquatic': false,
-    'incorporeal': false,
-    'mindless': false,
     abilities: {Str: 0, Dex: 0, Con: 0, Int: 0, Wis: 0, Cha: 0},
     perception: 0,
   };
@@ -48,7 +24,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {level: 0, alignment: 'N', size: 'Medium'};
+    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid']};
     const noAction = undefined;
     assert({
       given: 'a state and no action',
@@ -59,7 +35,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {level: 0, alignment: 'N', size: 'Medium'};
+    const state = {concept: '', level: 0, alignment: 'N', size: 'Medium', traits: []};
     const action = {type: 'weirdType'};
     assert({
       given: 'a state and an invalid action',
@@ -69,6 +45,7 @@ describe('MonsterBuilder reducer', async assert => {
     });
   }
 
+  // concept
   {
     const newConcept = 'fire';
     assert({
@@ -89,6 +66,7 @@ describe('MonsterBuilder reducer', async assert => {
     });
   }
 
+  // level
   {
     const newLevel = 5;
     assert({
@@ -109,6 +87,7 @@ describe('MonsterBuilder reducer', async assert => {
     });
   }
 
+  // alignment
   {
     const newAlignment = 'CE';
     assert({
@@ -129,6 +108,7 @@ describe('MonsterBuilder reducer', async assert => {
     });
   }
 
+  // size
   {
     const newSize = 'Small';
     assert({
@@ -149,23 +129,68 @@ describe('MonsterBuilder reducer', async assert => {
     });
   }
 
+  // traits
   {
-    const newType = 'Fey';
+    const newTrait = 'fey';
     assert({
-      given: 'initial state and an input change on type',
+      given: 'initial state and an add trait action',
       should: 'change the correct state property',
-      actual: JSON.stringify(reducer(undefined, changeInput('type', newType))),
-      expected: JSON.stringify({...initialState, type: newType})
+      actual: JSON.stringify(reducer(undefined, changeInput(newTrait, true))),
+      expected: JSON.stringify({...initialState, traits: [newTrait]})
     });
   }
 
   {
-    const newType = 'Dragon';
+    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const newTrait = 'dragon';
     assert({
-      given: 'initial state and an input change on type',
-      should: 'change the correct state property',
-      actual: JSON.stringify(reducer(undefined, changeInput('type', newType))),
-      expected: JSON.stringify({...initialState, type: newType})
+      given: 'a valid state and an add trait action',
+      should: 'add the new trait to the traits array property',
+      actual: JSON.stringify(reducer(state, changeInput(newTrait, true))),
+      expected: JSON.stringify({...state, traits: [...state.traits, newTrait]})
+    });
+  }
+
+  {
+    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const newTrait = 'humanoid';
+    assert({
+      given: 'a valid state and an add trait action for a trait already present in the traits property',
+      should: 'return the given state',
+      actual: JSON.stringify(reducer(state, changeInput(newTrait, true))),
+      expected: JSON.stringify(state)
+    });
+  }
+
+  {
+    const trait = 'humanoid';
+    assert({
+      given: 'initial (empty) state and a deselect trait action',
+      should: 'return the given initial state',
+      actual: JSON.stringify(reducer(undefined, changeInput(trait, false))),
+      expected: JSON.stringify(initialState)
+    });
+  }
+
+  {
+    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const trait = 'humanoid';
+    assert({
+      given: 'a valid state and a deselect trait action for a trait already present in the traits property',
+      should: 'remove the trait from the traits property',
+      actual: JSON.stringify(reducer(state, changeInput(trait, false))),
+      expected: JSON.stringify({...state, traits: ['amphibious']})
+    });
+  }
+
+  {
+    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const trait = 'fey';
+    assert({
+      given: 'a valid state and a deselect trait action for a trait absent from the traits property',
+      should: 'return the given state',
+      actual: JSON.stringify(reducer(state, changeInput(trait, false))),
+      expected: JSON.stringify(state)
     });
   }
 

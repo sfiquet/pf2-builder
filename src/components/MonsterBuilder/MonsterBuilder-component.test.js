@@ -2,7 +2,7 @@ import {describe} from 'riteway';
 import render from 'riteway/render-component';
 import React from 'react';
 import MonsterBuilder from './MonsterBuilder-component';
-import {reducer} from './MonsterBuilder-reducer';
+import reducer from './MonsterBuilder-reducer';
 
 describe('MonsterBuilder component', async assert => {
 

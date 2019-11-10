@@ -1,54 +1,47 @@
-const changeInput = (name, value) => ({
-  type: 'CHANGE_INPUT',
-  name,
-  value,
-});
+import traitsReducer from './Traits-reducer';
 
 const initialState = {
       concept: '',
       level: 0,
       alignment: 'N',
       size: 'Medium',
-      type: 'humanoid',
       traits: [],
-      'aeon': false,
-      'acid': false,
-      'air': false,
-      'angel': false,
-      'archon': false,
-      'azata': false,
-      'cold': false,
-      'daemon': false,
-      'demon': false,
-      'devil': false,
-      'earth': false,
-      'electricity': false,
-      'fire': false,
-      'inevitable': false,
-      'protean': false,
-      'psychopomp': false,
-      'rakshasa': false,
-      'spirit': false,
-      'swarm': false,
-      'water': false,
-      'amphibious': false,
-      'aquatic': false,
-      'incorporeal': false,
-      'mindless': false,
       abilities: {Str: 0, Dex: 0, Con: 0, Int: 0, Wis: 0, Cha: 0},
       perception: 0,
 };
 
-const reducer = (state = initialState, {type, name, value} = {}) => {
-  switch (type){
-    case 'CHANGE_INPUT':
-      return {
-        ...state,
-        [name]: value,
-      };
-    default:
+const createInputReducer = (reducerName, initValue) => {
+  return (state = initValue, action) => {
+    const {name} = action;
+    if (name !== reducerName){
       return state;
-  }
+    }
+
+    switch (action.type){
+      case 'CHANGE_INPUT':
+        return action.value;
+      default:
+        return state;
+    }
+  };
 };
 
-export {reducer, changeInput};
+const conceptReducer = createInputReducer('concept', '');
+const levelReducer = createInputReducer('level', 0);
+const alignmentReducer = createInputReducer('alignment', 'N');
+const sizeReducer = createInputReducer('size', 'Medium');
+
+const reducer = (state = initialState, action = {}) => {
+  return {
+    concept: conceptReducer(state.concept, action),
+    level: levelReducer(state.level, action),
+    alignment: alignmentReducer(state.alignment, action),
+    size: sizeReducer(state.size, action),
+    traits: traitsReducer(state.traits, action),
+    // those are currently hard-coded
+    abilities: state.abilities,
+    perception: state.perception,
+  };
+};
+
+export default reducer;

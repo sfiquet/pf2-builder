@@ -12,7 +12,7 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
   const getTreeForTraitType = (type) => getTraitIdsByType(type).map(item => ({
     ...data.traits.byId[item],
     name: item, 
-    isSelected: monster[item], 
+    isSelected: monster.traits ? monster.traits.includes(item) : false,
   }));
 
   const alignmentOptions = data.alignments.map(item => (<option key={item} value={item}>{item}</option>));
