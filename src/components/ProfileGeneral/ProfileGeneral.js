@@ -24,11 +24,21 @@ const ProfileGeneral = ({level, monster}) => {
       </li>
     );
   });
+  const alignmentTrait = monster && monster.alignment ? <li className="ProfileGeneral-traits-item alignment" key="alignment">{monster.alignment}</li> : null;
+  const sizeTrait = monster && monster.size ? <li className="ProfileGeneral-traits-item size" key="size">{monster.size}</li> : null;
+  let sortedTraits = monster && monster.traits ? [...monster.traits] : [];
+  sortedTraits.sort();
+  const regularTraits = sortedTraits.map(item => <li className="ProfileGeneral-traits-item" key={item}>{item}</li>);
 
   return (
     <section className="ProfileGeneral border-bottom border-dark">
       <Heading level={level} className="ProfileGeneral-heading sr-only">General Stats</Heading>
-      <Heading level={nextLevel} className="ProfileGeneral-traits">Traits</Heading>
+      <Heading level={nextLevel} className="ProfileGeneral-traitsheading sr-only">Traits</Heading>
+      <ul className="ProfileGeneral-traits">
+        {alignmentTrait}
+        {sizeTrait}
+        {regularTraits}
+      </ul>
       <ProfileEntry className="ProfileGeneral-perception" level={nextLevel} content={perception}/>
       <ProfileEntry className="ProfileGeneral-skills" level={nextLevel} content={{title: 'Skills'}}/>
       <div className="ProfileGeneral-abilities">

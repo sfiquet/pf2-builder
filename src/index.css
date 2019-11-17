@@ -40,6 +40,28 @@ code {
   content: "";
 }
 
+.ProfileGeneral-traits {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: -.12rem;
+}
+.ProfileGeneral-traits-item {
+  display: inline;
+  color: white;
+  background-color: maroon;
+  text-transform: uppercase;
+  margin: .12rem;
+  padding: .12rem 1rem;
+}
+.alignment {
+  background-color: purple;
+}
+.size {
+  background-color: green;
+}
+
 .ProfileEntry-title {
   font-size: 1em;
   font-weight: bold;

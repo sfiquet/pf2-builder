@@ -58,9 +58,19 @@ describe('ProfileGeneral component', async assert => {
     const $ = render(<ProfileGeneral />);
     assert({
       given: 'no arguments',
-      should: 'render a traits heading',
-      actual: $('.ProfileGeneral-traits').text(),
+      should: 'render a hidden traits heading for screenreaders',
+      actual: $('.ProfileGeneral-traitsheading').text(),
       expected: 'Traits'
+    });
+  }
+
+  {
+    const $ = render(<ProfileGeneral />);
+    assert({
+      given: 'no arguments',
+      should: 'render a hidden traits heading for screenreaders',
+      actual: $('.ProfileGeneral-traitsheading').hasClass('sr-only'),
+      expected: true
     });
   }
 
@@ -113,6 +123,28 @@ describe('ProfileGeneral component', async assert => {
       should: 'render other headings at the next level',
       actual: $('h4').length,
       expected: 4
+    });
+  }
+
+  {
+    const monster = { alignment: 'CG', size: 'Medium', traits: ['angel', 'celestial', 'cold'] };
+    const $ = render(<ProfileGeneral monster={monster} />);
+    assert({
+      given: 'a monster with alignment, size and traits',
+      should: 'render a list of tags containing alignment, size and traits',
+      actual: $('.ProfileGeneral-traits').text(),
+      expected: [monster.alignment, monster.size, ...monster.traits].join('')
+    });
+  }
+
+  {
+    const monster = { traits: ['fiend', 'cold', 'demon'] };
+    const $ = render(<ProfileGeneral monster={monster} />);
+    assert({
+      given: 'a monster with traits',
+      should: 'render a list of tags containing traits in alphabetical order',
+      actual: $('.ProfileGeneral-traits').text(),
+      expected: ['cold', 'demon', 'fiend'].join('')
     });
   }
 
