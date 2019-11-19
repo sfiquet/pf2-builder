@@ -79,9 +79,12 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
         </div>
 
         {/* traits */}
-        <TreeSelect treeNodes={typeOptions} title="Type Traits:" idPrefix="type" onChange={onChange}/>
-        <TreeSelect treeNodes={energyOptions} title="Element & Energy Traits:" idPrefix="energy" onChange={onChange}/>
-        <TreeSelect treeNodes={physicalOptions} title="Physical & Mental Traits:" idPrefix="physical" onChange={onChange}/>
+        <section className="traits">
+          <Heading className="Section-title" level={level+1}>Traits</Heading>
+          <TreeSelect className="typeTraits" treeNodes={typeOptions} title="Type Traits:" idPrefix="type" onChange={onChange}/>
+          <TreeSelect className="powerTraits" treeNodes={energyOptions} title="Element & Energy Traits:" idPrefix="energy" onChange={onChange}/>
+          <TreeSelect className="physicalTraits" treeNodes={physicalOptions} title="Physical & Mental Traits:" idPrefix="physical" onChange={onChange}/>
+        </section>
 
       </section>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Checkbox from '../Checkbox/Checkbox';
 
-const TreeSelect = ({treeNodes, title, idPrefix, onChange}) => {
+const TreeSelect = ({treeNodes, title, idPrefix, className, onChange}) => {
   if (!treeNodes || treeNodes.length === 0){
     return null;
   }
@@ -42,7 +42,7 @@ const TreeSelect = ({treeNodes, title, idPrefix, onChange}) => {
   });
 
   return (
-    <fieldset className="TreeSelect form-group">
+    <fieldset className={["TreeSelect form-group", className].join(' ')}>
       <legend className="MonsterBuilder-legend">{title}</legend>
       {options}
     </fieldset>

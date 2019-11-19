@@ -337,4 +337,31 @@ describe('TreeSelect component', async assert => {
     });
   }
 
+  {
+    const treeNodes = [
+      createNode({id: 'one'}),
+    ];
+    const className = 'MyFirstClass MySecondClass';
+    const $ = render(<TreeSelect className={className} treeNodes={treeNodes} onChange={onChange} />);
+    assert({
+      given: 'a treeNodes prop and a className string',
+      should: 'render the component with the given classes',
+      actual: $('.TreeSelect').hasClass('MyFirstClass'),
+      expected: true
+    });
+  }
+
+  {
+    const treeNodes = [
+      createNode({id: 'one'}),
+    ];
+    const className = 'MyFirstClass MySecondClass';
+    const $ = render(<TreeSelect className={className} treeNodes={treeNodes} onChange={onChange} />);
+    assert({
+      given: 'a treeNodes prop and a className string',
+      should: 'render the component with the given classes',
+      actual: $('.TreeSelect').hasClass('MySecondClass'),
+      expected: true
+    });
+  }
 });
