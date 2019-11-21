@@ -2,6 +2,7 @@ import React from 'react';
 import data, {getTraitIdsByType} from '../../data/data';
 import Heading from '../UI/Heading/Heading';
 import TreeSelect from '../UI/TreeSelect/TreeSelect';
+import ScaleInput from '../UI/ScaleInput/ScaleInput';
 
 const MonsterBuilderForm = ({monster, level, onChange}) => {
 
@@ -21,6 +22,9 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
   const typeOptions = getTreeForTraitType('monsterType');
   const energyOptions = getTreeForTraitType('powerSource');
   const physicalOptions = getTreeForTraitType('physical');
+  const defaultAbility = {scale: 'Manual', value: 0};
+  const defaultAbilities = {Str: defaultAbility, Dex: defaultAbility, Con: defaultAbility, Int: defaultAbility, Wis: defaultAbility, Cha: defaultAbility};
+  const abilities = monster.abilities ? monster.abilities : defaultAbilities;
 
   return (
     <form id="monsterInput" className="MonsterBuilderForm col-12 col-md-6 border rounded pt-2 pb-3 mb-2">
@@ -84,6 +88,17 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
           <TreeSelect className="typeTraits" treeNodes={typeOptions} title="Type Traits:" idPrefix="type" onChange={onChange}/>
           <TreeSelect className="powerTraits" treeNodes={energyOptions} title="Element & Energy Traits:" idPrefix="energy" onChange={onChange}/>
           <TreeSelect className="physicalTraits" treeNodes={physicalOptions} title="Physical & Mental Traits:" idPrefix="physical" onChange={onChange}/>
+        </section>
+
+        {/* ability modifiers */}
+        <section className="abilityMods">
+          <Heading className="Section-title" level={level+1}>Ability Modifiers</Heading>
+          <ScaleInput title='Str' value={abilities.Str.value} scales={data.scales.common} scaleValue={abilities.Str.scale} onChange={onChange} />
+          <ScaleInput title='Dex' value={abilities.Dex.value} scales={data.scales.common} scaleValue={abilities.Dex.scale} onChange={onChange} />
+          <ScaleInput title='Con' value={abilities.Con.value} scales={data.scales.common} scaleValue={abilities.Con.scale} onChange={onChange} />
+          <ScaleInput title='Int' value={abilities.Int.value} scales={data.scales.common} scaleValue={abilities.Int.scale} onChange={onChange} />
+          <ScaleInput title='Wis' value={abilities.Wis.value} scales={data.scales.common} scaleValue={abilities.Wis.scale} onChange={onChange} />
+          <ScaleInput title='Cha' value={abilities.Cha.value} scales={data.scales.common} scaleValue={abilities.Cha.scale} onChange={onChange} />
         </section>
 
       </section>

@@ -1,5 +1,29 @@
 const data = {
-  values: ['terrible', 'low', 'moderate', 'high', 'extreme'],
+  scales: {
+    full: [
+      'Extreme',
+      'High', 
+      'Moderate', 
+      'Low', 
+      'Terrible', 
+    ],
+    common: [
+      'Extreme',
+      'High', 
+      'Moderate', 
+      'Low', 
+    ],
+    hp: [
+      'High', 
+      'Moderate', 
+      'Low', 
+    ],
+    spell: [
+      'Extreme',
+      'High', 
+      'Moderate', 
+    ],
+  },
   alignments: [
     'LG',
     'NG',

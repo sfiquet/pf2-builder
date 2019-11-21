@@ -352,9 +352,6 @@ describe('MonsterBuilderForm component', async assert => {
     });
   }
 
-
-
-
   {
     const monster = {traits: ['swarm']};
     const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}}/>);
@@ -422,4 +419,169 @@ describe('MonsterBuilderForm component', async assert => {
     });
   }
 
+  // ability modifiers
+  const abilities = {
+    Str: {scale: 'Moderate', value: 5}, 
+    Dex: {scale: 'Moderate', value: 5}, 
+    Con: {scale: 'Moderate', value: 5}, 
+    Int: {scale: 'Moderate', value: 5}, 
+    Wis: {scale: 'Moderate', value: 5}, 
+    Cha: {scale: 'Moderate', value: 5},
+  };
+
+  {
+    const should = 'render an ability modifiers sub-section';
+    const $ = render(<MonsterBuilderForm />);
+    assert({
+      given: 'no arguments',
+      should,
+      actual: $('section.General section.abilityMods').length,
+      expected: 1
+    });
+  }
+
+  {
+    const should = 'render the Str value prop';
+    const monster = {abilities: {...abilities, Str: {scale: 'Manual', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Str]').val(),
+      expected: `${monster.abilities.Str.value}`
+    });
+  }
+  
+  {
+    const should = 'render the Dex value prop';
+    const monster = {abilities: {...abilities, Dex: {scale: 'High', value: 3}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Dex]').val(),
+      expected: `${monster.abilities.Dex.value}`
+    });
+  }
+
+  {
+    const should = 'render the Con value prop';
+    const monster = {abilities: {...abilities, Con: {scale: 'Moderate', value: 2}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Con]').val(),
+      expected: `${monster.abilities.Con.value}`
+    });
+  }
+
+  {
+    const should = 'render the Int value prop';
+    const monster = {abilities: {...abilities, Int: {scale: 'Moderate', value: 1}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Int]').val(),
+      expected: `${monster.abilities.Int.value}`
+    });
+  }
+
+  {
+    const should = 'render the Wis value prop';
+    const monster = {abilities: {...abilities, Wis: {scale: 'Moderate', value: 0}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Wis]').val(),
+      expected: `${monster.abilities.Wis.value}`
+    });
+  }
+
+  {
+    const should = 'render the Cha value prop';
+    const monster = {abilities: {...abilities, Cha: {scale: 'Moderate', value: -1}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General input[name=Cha]').val(),
+      expected: `${monster.abilities.Cha.value}`
+    });
+  }
+  
+  {
+    const should = 'render the Str scale prop';
+    const monster = {abilities: {...abilities, Str: {scale: 'Manual', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Str_scale]').val(),
+      expected: `${monster.abilities.Str.scale}`
+    });
+  }
+  
+  {
+    const should = 'render the Dex scale prop';
+    const monster = {abilities: {...abilities, Dex: {scale: 'Moderate', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Dex_scale]').val(),
+      expected: `${monster.abilities.Dex.scale}`
+    });
+  }
+  
+  {
+    const should = 'render the Con scale prop';
+    const monster = {abilities: {...abilities, Con: {scale: 'High', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Con_scale]').val(),
+      expected: `${monster.abilities.Con.scale}`
+    });
+  }
+  
+  {
+    const should = 'render the Int scale prop';
+    const monster = {abilities: {...abilities, Int: {scale: 'Low', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Int_scale]').val(),
+      expected: `${monster.abilities.Int.scale}`
+    });
+  }
+  
+  {
+    const should = 'render the Wis scale prop';
+    const monster = {abilities: {...abilities, Wis: {scale: 'Extreme', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Wis_scale]').val(),
+      expected: `${monster.abilities.Wis.scale}`
+    });
+  }
+  
+  {
+    const should = 'render the Cha scale prop';
+    const monster = {abilities: {...abilities, Cha: {scale: 'Manual', value: 4}}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster',
+      should,
+      actual: $('section.General select[name=Cha_scale]').val(),
+      expected: `${monster.abilities.Cha.scale}`
+    });
+  }
+  
 });

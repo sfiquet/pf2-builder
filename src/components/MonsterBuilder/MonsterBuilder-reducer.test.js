@@ -9,7 +9,14 @@ describe('MonsterBuilder reducer', async assert => {
     alignment: 'N',
     size: 'Medium',
     traits: [],
-    abilities: {Str: 0, Dex: 0, Con: 0, Int: 0, Wis: 0, Cha: 0},
+    abilities: {
+      Str: {scale: 'Moderate', value: 0}, 
+      Dex: {scale: 'Moderate', value: 0}, 
+      Con: {scale: 'Moderate', value: 0}, 
+      Int: {scale: 'Moderate', value: 0}, 
+      Wis: {scale: 'Moderate', value: 0}, 
+      Cha: {scale: 'Moderate', value: 0},
+    },
     perception: 0,
   };
 
@@ -24,7 +31,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid']};
+    const state = {...initialState, concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid']};
     const noAction = undefined;
     assert({
       given: 'a state and no action',
@@ -35,7 +42,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: '', level: 0, alignment: 'N', size: 'Medium', traits: []};
+    const state = {...initialState};
     const action = {type: 'weirdType'};
     assert({
       given: 'a state and an invalid action',
@@ -141,7 +148,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const state = {...initialState, concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
     const newTrait = 'dragon';
     assert({
       given: 'a valid state and an add trait action',
@@ -152,7 +159,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const state = {...initialState, concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
     const newTrait = 'humanoid';
     assert({
       given: 'a valid state and an add trait action for a trait already present in the traits property',
@@ -173,7 +180,7 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const state = {...initialState, concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
     const trait = 'humanoid';
     assert({
       given: 'a valid state and a deselect trait action for a trait already present in the traits property',
@@ -184,13 +191,218 @@ describe('MonsterBuilder reducer', async assert => {
   }
 
   {
-    const state = {concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
+    const state = {...initialState, concept: 'fire', level: 1, alignment: 'CG', size: 'Large', traits: ['humanoid', 'amphibious']};
     const trait = 'fey';
     assert({
       given: 'a valid state and a deselect trait action for a trait absent from the traits property',
       should: 'return the given state',
       actual: JSON.stringify(reducer(state, changeInput(trait, false))),
       expected: JSON.stringify(state)
+    });
+  }
+
+  // abilities
+  {
+    const should = 'change the scale property for Str'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Str scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Str_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Str: {
+            ...initialState.abilities.Str, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Str'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Str value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Str', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Str: {
+            ...initialState.abilities.Str, value: value
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the scale property for Dex'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Dex scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Dex_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Dex: {
+            ...initialState.abilities.Dex, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Dex'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Dex value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Dex', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Dex: {
+            ...initialState.abilities.Dex, value: value
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the scale property for Con'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Con scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Con_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Con: {
+            ...initialState.abilities.Con, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Con'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Con value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Con', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Con: {
+            ...initialState.abilities.Con, value: value
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the scale property for Int'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Int scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Int_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Int: {
+            ...initialState.abilities.Int, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Int'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Int value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Int', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Int: {
+            ...initialState.abilities.Int, value: value
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the scale property for Wis'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Wis scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Wis_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Wis: {
+            ...initialState.abilities.Wis, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Wis'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Wis value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Wis', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Wis: {
+            ...initialState.abilities.Wis, value: value
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the scale property for Cha'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on Cha scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Cha_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Cha: {
+            ...initialState.abilities.Cha, scale: scale
+          }
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for Cha'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on Cha value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('Cha', value))),
+      expected: JSON.stringify({
+        ...initialState, abilities: {
+          ...initialState.abilities, Cha: {
+            ...initialState.abilities.Cha, value: value
+          }
+        }
+      })
     });
   }
 
