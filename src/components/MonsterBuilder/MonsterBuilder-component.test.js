@@ -3,6 +3,7 @@ import render from 'riteway/render-component';
 import React from 'react';
 import MonsterBuilder from './MonsterBuilder-component';
 import reducer from './MonsterBuilder-reducer';
+import {mapStateToMonsterProp} from './index';
 
 describe('MonsterBuilder component', async assert => {
 
@@ -27,7 +28,7 @@ describe('MonsterBuilder component', async assert => {
   }
 
   {
-    const monster = reducer();
+    const monster = mapStateToMonsterProp(reducer());
     const $ = render(<MonsterBuilder monster={monster} onChange={()=>{}} />);
     assert({
       given: 'a valid initial monster',
@@ -38,7 +39,7 @@ describe('MonsterBuilder component', async assert => {
   }
 
   {
-    const monster = reducer();
+    const monster = mapStateToMonsterProp(reducer());
     const $ = render(<MonsterBuilder monster={monster} onChange={()=>{}} />);
     assert({
       given: 'a valid initial monster',
@@ -49,7 +50,7 @@ describe('MonsterBuilder component', async assert => {
   }
 
   {
-    const monster = reducer();
+    const monster = mapStateToMonsterProp(reducer());
     const $ = render(<MonsterBuilder monster={monster} onChange={()=>{}} />);
     assert({
       given: 'a valid initial monster',
