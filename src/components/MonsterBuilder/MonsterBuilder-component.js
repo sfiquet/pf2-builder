@@ -16,7 +16,7 @@ const MonsterBuilder = ({monster, onChange}) => {
     });
     const abilities = Object.fromEntries(keyValuePairs);
 
-    return {...monster, abilities: abilities};
+    return {...monster, abilities: abilities, perception: monster.perception.value};
   };
 
   return (

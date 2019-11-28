@@ -15,7 +15,7 @@ const initialState = {
         Wis: {scale: 'Moderate', value: 0}, 
         Cha: {scale: 'Moderate', value: 0},
       },
-      perception: 0,
+      perception: {scale: 'Moderate', value: 0},
 };
 
 const createInputReducer = (reducerName, initValue) => {
@@ -39,7 +39,7 @@ const levelReducer = createInputReducer('level', 0);
 const alignmentReducer = createInputReducer('alignment', 'N');
 const sizeReducer = createInputReducer('size', 'Medium');
 
-const createAbilityReducer = (reducerName, initValue) => {
+const createScaleReducer = (reducerName, initValue) => {
   return (state = initValue, action) => {
     const {name, value} = action;
     const isValueChange = name === reducerName;
@@ -49,27 +49,29 @@ const createAbilityReducer = (reducerName, initValue) => {
 
     switch (action.type){
       case 'CHANGE_INPUT':
-        return changeAbility(state, isValueChange, value);
+        return changeScale(state, isValueChange, value);
       default:
         return state;
     }
   };
 };
 
-const changeAbility = (abilityState, isValueChange, value) => {
+const changeScale = (scaleState, isValueChange, value) => {
   if (isValueChange) {
-    return {...abilityState, value: parseInt(value, 10)};
+    return {...scaleState, value: parseInt(value, 10)};
   }
 
-  return {...abilityState, scale: value};
+  return {...scaleState, scale: value};
 };
 
-const StrReducer = createAbilityReducer('Str', {scale: 'Moderate', value: 0});
-const DexReducer = createAbilityReducer('Dex', {scale: 'Moderate', value: 0});
-const ConReducer = createAbilityReducer('Con', {scale: 'Moderate', value: 0});
-const IntReducer = createAbilityReducer('Int', {scale: 'Moderate', value: 0});
-const WisReducer = createAbilityReducer('Wis', {scale: 'Moderate', value: 0});
-const ChaReducer = createAbilityReducer('Cha', {scale: 'Moderate', value: 0});
+const StrReducer = createScaleReducer('Str', {scale: 'Moderate', value: 0});
+const DexReducer = createScaleReducer('Dex', {scale: 'Moderate', value: 0});
+const ConReducer = createScaleReducer('Con', {scale: 'Moderate', value: 0});
+const IntReducer = createScaleReducer('Int', {scale: 'Moderate', value: 0});
+const WisReducer = createScaleReducer('Wis', {scale: 'Moderate', value: 0});
+const ChaReducer = createScaleReducer('Cha', {scale: 'Moderate', value: 0});
+
+const perceptionReducer = createScaleReducer('Perception', {scale: 'Moderate', value: 0});
 
 
 const reducer = (state = initialState, action = {}) => {
@@ -87,8 +89,7 @@ const reducer = (state = initialState, action = {}) => {
       Wis: WisReducer(state.abilities.Wis, action),
       Cha: ChaReducer(state.abilities.Cha, action),
     },
-    // currently hard-coded
-    perception: state.perception,
+    perception: perceptionReducer(state.perception, action),
   };
 };
 

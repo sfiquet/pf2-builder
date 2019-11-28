@@ -25,6 +25,7 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
   const defaultAbility = {scale: 'Manual', value: 0};
   const defaultAbilities = {Str: defaultAbility, Dex: defaultAbility, Con: defaultAbility, Int: defaultAbility, Wis: defaultAbility, Cha: defaultAbility};
   const abilities = monster.abilities ? monster.abilities : defaultAbilities;
+  const perception = monster.perception ? monster.perception : {scale: 'Manual', value: 0};
 
   return (
     <form id="monsterInput" className="MonsterBuilderForm col-12 col-md-6 border rounded pt-2 pb-3 mb-2">
@@ -99,6 +100,12 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
           <ScaleInput title='Int' value={abilities.Int.value} scales={data.scales.common} scaleValue={abilities.Int.scale} onChange={onChange} />
           <ScaleInput title='Wis' value={abilities.Wis.value} scales={data.scales.common} scaleValue={abilities.Wis.scale} onChange={onChange} />
           <ScaleInput title='Cha' value={abilities.Cha.value} scales={data.scales.common} scaleValue={abilities.Cha.scale} onChange={onChange} />
+        </section>
+
+        {/* perception and senses */}
+        <section className="perception">
+          <Heading className="Section-title" level={level+1}>Perception and Senses</Heading>
+          <ScaleInput title='Perception' value={perception.value} scales={data.scales.full} scaleValue={perception.scale} onChange={onChange} />
         </section>
 
       </section>

@@ -584,4 +584,40 @@ describe('MonsterBuilderForm component', async assert => {
     });
   }
   
+  // perception and senses
+  {
+    const should = 'render an perception sub-section';
+    const $ = render(<MonsterBuilderForm />);
+    assert({
+      given: 'no arguments',
+      should,
+      actual: $('section.General section.perception').length,
+      expected: 1
+    });
+  }
+
+  {
+    const should = 'render the perception value prop';
+    const monster = {perception: {scale: 'Manual', value: 4}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster with perception',
+      should,
+      actual: $('section.General input[name=Perception]').val(),
+      expected: `${monster.perception.value}`
+    });
+  }
+  
+  {
+    const should = 'render the perception scale prop';
+    const monster = {perception: {scale: 'Manual', value: 4}};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster with perception',
+      should,
+      actual: $('section.General select[name=Perception_scale]').val(),
+      expected: `${monster.perception.scale}`
+    });
+  }
+
 });

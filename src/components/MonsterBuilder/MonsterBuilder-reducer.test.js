@@ -17,7 +17,7 @@ describe('MonsterBuilder reducer', async assert => {
       Wis: {scale: 'Moderate', value: 0}, 
       Cha: {scale: 'Moderate', value: 0},
     },
-    perception: 0,
+    perception: {scale: 'Moderate', value: 0},
   };
 
   {
@@ -401,6 +401,37 @@ describe('MonsterBuilder reducer', async assert => {
           ...initialState.abilities, Cha: {
             ...initialState.abilities.Cha, value: value
           }
+        }
+      })
+    });
+  }
+
+  // perception
+  {
+    const should = 'change the scale property for perception'
+    const scale = 'High';
+    assert({
+      given: 'initial state and an input change on perception scale',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('perception_scale', scale))),
+      expected: JSON.stringify({
+        ...initialState, perception: {
+          ...initialState.perception, scale: scale
+        }
+      })
+    });
+  }
+
+  {
+    const should = 'change the value property for perception'
+    const value = 5;
+    assert({
+      given: 'initial state and an input change on perception value',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('perception', value))),
+      expected: JSON.stringify({
+        ...initialState, perception: {
+          ...initialState.perception, value: value
         }
       })
     });
