@@ -620,4 +620,16 @@ describe('MonsterBuilderForm component', async assert => {
     });
   }
 
+  {
+    const should = 'render the senses prop';
+    const monster = {senses: 'darkvision'};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster with senses',
+      should,
+      actual: $('section.General textarea[name=senses]').val(),
+      expected: `${monster.senses}`
+    });
+  }
+
 });

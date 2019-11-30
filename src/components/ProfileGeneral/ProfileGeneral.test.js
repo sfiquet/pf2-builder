@@ -160,6 +160,17 @@ describe('ProfileGeneral component', async assert => {
   }
 
   {
+    const monster = { perception: 3, senses: 'darkvision' };
+    const $ = render(<ProfileGeneral monster={monster} />);
+    assert({
+      given: 'a monster with perception and special senses',
+      should: 'render a perception entry with title and formatted value, followed by the senses',
+      actual: $('.ProfileGeneral-perception').text(),
+      expected: ['Perception', `+${monster.perception}`, `; ${monster.senses}`].join('')
+    });
+  }
+
+  {
     const monster = { abilities: {Str: 0, Dex: 1, Con: 2, Int: -1, Wis: -2, Cha: -3} };
     const $ = render(<ProfileGeneral monster={monster} />);
     assert({

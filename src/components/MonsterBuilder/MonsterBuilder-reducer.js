@@ -1,21 +1,22 @@
 import traitsReducer from './Traits-reducer';
 
 const initialState = {
-      concept: '',
-      level: 0,
-      alignment: 'N',
-      size: 'Medium',
-      traits: [],
-      abilities: {
-        // value is ignored unless scale is 'Manual'
-        Str: {scale: 'Moderate', value: 0}, 
-        Dex: {scale: 'Moderate', value: 0}, 
-        Con: {scale: 'Moderate', value: 0}, 
-        Int: {scale: 'Moderate', value: 0}, 
-        Wis: {scale: 'Moderate', value: 0}, 
-        Cha: {scale: 'Moderate', value: 0},
-      },
-      perception: {scale: 'Moderate', value: 0},
+  concept: '',
+  level: 0,
+  alignment: 'N',
+  size: 'Medium',
+  traits: [],
+  abilities: {
+    // value is ignored unless scale is 'Manual'
+    Str: {scale: 'Moderate', value: 0}, 
+    Dex: {scale: 'Moderate', value: 0}, 
+    Con: {scale: 'Moderate', value: 0}, 
+    Int: {scale: 'Moderate', value: 0}, 
+    Wis: {scale: 'Moderate', value: 0}, 
+    Cha: {scale: 'Moderate', value: 0},
+  },
+  perception: {scale: 'Moderate', value: 0},
+  senses: '',
 };
 
 const createInputReducer = (reducerName, initValue) => {
@@ -72,7 +73,7 @@ const WisReducer = createScaleReducer('Wis', {scale: 'Moderate', value: 0});
 const ChaReducer = createScaleReducer('Cha', {scale: 'Moderate', value: 0});
 
 const perceptionReducer = createScaleReducer('Perception', {scale: 'Moderate', value: 0});
-
+const sensesReducer = createInputReducer('senses', '');
 
 const reducer = (state = initialState, action = {}) => {
   return {
@@ -90,6 +91,7 @@ const reducer = (state = initialState, action = {}) => {
       Cha: ChaReducer(state.abilities.Cha, action),
     },
     perception: perceptionReducer(state.perception, action),
+    senses: sensesReducer(state.senses, action),
   };
 };
 

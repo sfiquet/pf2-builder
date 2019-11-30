@@ -106,6 +106,11 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
         <section className="perception">
           <Heading className="Section-title" level={level+1}>Perception and Senses</Heading>
           <ScaleInput title='Perception' value={perception.value} scales={data.scales.full} scaleValue={perception.scale} onChange={onChange} />
+          
+          <div className="form-group">
+            <label htmlFor="senses">Senses</label>
+            <textarea id="senses" className="form-control" value={monster.senses} name="senses" onChange={onChange}></textarea>
+          </div>
         </section>
 
       </section>

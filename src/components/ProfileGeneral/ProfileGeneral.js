@@ -12,7 +12,9 @@ import ProfileEntry from '../ProfileEntry/ProfileEntry';
 
 const ProfileGeneral = ({level, monster}) => {
   const nextLevel = level ? level + 1 : level;
-  const perception = {title: 'Perception', text: monster ? format(monster.perception) : undefined };
+  const senses = monster && monster.senses && monster.senses.length ? `; ${monster.senses}` : '';
+  const perceptionText = monster ? `${format(monster.perception)}${senses}` : '';
+  const perception = {title: 'Perception', text: perceptionText };
 
   const abilities = ['Str', 'Dex', 'Con', 'Int', 'Wis', 'Cha'].map(item => {
     let content = monster && monster.abilities ? 

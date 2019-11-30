@@ -18,6 +18,7 @@ describe('MonsterBuilder reducer', async assert => {
       Cha: {scale: 'Moderate', value: 0},
     },
     perception: {scale: 'Moderate', value: 0},
+    senses: '',
   };
 
   {
@@ -433,6 +434,20 @@ describe('MonsterBuilder reducer', async assert => {
         ...initialState, perception: {
           ...initialState.perception, value: value
         }
+      })
+    });
+  }
+
+  // senses
+  {
+    const should = 'change the senses property'
+    const senses = 'darkvision, scent (imprecise) 120 feet, true seeing';
+    assert({
+      given: 'initial state and an input change on senses',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('senses', senses))),
+      expected: JSON.stringify({
+        ...initialState, senses
       })
     });
   }
