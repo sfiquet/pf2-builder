@@ -413,7 +413,7 @@ describe('MonsterBuilder reducer', async assert => {
     assert({
       given: 'initial state and an input change on perception scale',
       should,
-      actual: JSON.stringify(reducer(undefined, changeInput('perception_scale', scale))),
+      actual: JSON.stringify(reducer(undefined, changeInput('Perception_scale', scale))),
       expected: JSON.stringify({
         ...initialState, perception: {
           ...initialState.perception, scale: scale
@@ -428,7 +428,7 @@ describe('MonsterBuilder reducer', async assert => {
     assert({
       given: 'initial state and an input change on perception value',
       should,
-      actual: JSON.stringify(reducer(undefined, changeInput('perception', value))),
+      actual: JSON.stringify(reducer(undefined, changeInput('Perception', value))),
       expected: JSON.stringify({
         ...initialState, perception: {
           ...initialState.perception, value: value
