@@ -30,7 +30,7 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
   return (
     <form id="monsterInput" className="MonsterBuilderForm col-12 col-md-6 border rounded pt-2 pb-3 mb-2">
       
-      <section className="Concept">
+      <section className="Concept mb-3">
         <Heading className="Section-title" level={level}>Concept</Heading>
 
         <div className="form-group">
@@ -46,7 +46,7 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
         </div>
       </section>
 
-      <section className="General">
+      <section className="General mb-3">
         <Heading className="Section-title" level={level}>General</Heading>
 
         {/* level, alignment and size */}
@@ -113,13 +113,20 @@ const MonsterBuilderForm = ({monster, level, onChange}) => {
           </div>
         </section>
 
+        {/* languages */}
+        <section className="languages">
+          <Heading className="Section-title" level={level+1}>Communication</Heading>
+          <label className="" htmlFor="languages-input">Languages</label>
+          <input type="text" id="languages-input" className="form-control" value={monster.languages} name="languages" onChange={onChange} />
+        </section>
+
       </section>
 
-      <section className="Defense">
+      <section className="Defense mb-3">
         <Heading className="Section-title" level={level}>Defense</Heading>
       </section>
 
-      <section className="Offense">
+      <section className="Offense mb-3">
         <Heading className="Section-title" level={level}>Offense</Heading>
       </section>
     </form>

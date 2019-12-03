@@ -5,7 +5,6 @@ import ProfileEntry from '../ProfileEntry/ProfileEntry';
 
 /*
   To add:
-      <ProfileEntry level={nextLevel} content={{title: 'Languages'}}/>
       <ProfileEntry level={nextLevel} content={{title: 'Items'}}/>
       <ProfileEntry level={nextLevel} content={{title: 'Interaction Abilities'}}/>
 */
@@ -41,8 +40,11 @@ const ProfileGeneral = ({level, monster}) => {
         {sizeTrait}
         {regularTraits}
       </ul>
-      <ProfileEntry className="ProfileGeneral-perception" level={nextLevel} content={perception}/>
-      <ProfileEntry className="ProfileGeneral-skills" level={nextLevel} content={{title: 'Skills'}}/>
+      <ProfileEntry className="ProfileGeneral-perception" level={nextLevel} content={perception} />
+      {monster && monster.languages && monster.languages.length > 0 &&
+        <ProfileEntry className="ProfileGeneral-languages" level={nextLevel} content={{title: 'Languages', text: monster.languages}} />
+      }
+      <ProfileEntry className="ProfileGeneral-skills" level={nextLevel} content={{title: 'Skills'}} />
       <div className="ProfileGeneral-abilities">
         <Heading level={nextLevel} className="sr-only">Ability Modifiers</Heading>
         <ul className="MonsterProfile-list">

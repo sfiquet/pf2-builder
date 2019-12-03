@@ -19,6 +19,7 @@ describe('MonsterBuilder reducer', async assert => {
     },
     perception: {scale: 'Moderate', value: 0},
     senses: '',
+    languages: '',
   };
 
   {
@@ -448,6 +449,20 @@ describe('MonsterBuilder reducer', async assert => {
       actual: JSON.stringify(reducer(undefined, changeInput('senses', senses))),
       expected: JSON.stringify({
         ...initialState, senses
+      })
+    });
+  }
+
+  // languages
+  {
+    const should = 'change the languages property'
+    const languages = 'Common, Speak with Animals';
+    assert({
+      given: 'initial state and an input change on languages',
+      should,
+      actual: JSON.stringify(reducer(undefined, changeInput('languages', languages))),
+      expected: JSON.stringify({
+        ...initialState, languages
       })
     });
   }

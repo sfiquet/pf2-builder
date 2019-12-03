@@ -117,12 +117,13 @@ describe('ProfileGeneral component', async assert => {
 
   {
     const level = 3;
+    const mandatoryHeadings = ['Traits', 'Perception', 'Skills', 'Ability Modifiers'];
     const $ = render(<ProfileGeneral level={level}/>);
     assert({
       given: 'a heading level',
       should: 'render other headings at the next level',
       actual: $('h4').length,
-      expected: 4
+      expected: mandatoryHeadings.length
     });
   }
 
@@ -167,6 +168,30 @@ describe('ProfileGeneral component', async assert => {
       should: 'render a perception entry with title and formatted value, followed by the senses',
       actual: $('.ProfileGeneral-perception').text(),
       expected: ['Perception', `+${monster.perception}`, `; ${monster.senses}`].join('')
+    });
+  }
+
+  {
+    const should = 'not render a languages entry';
+    const monster = {languages: ''};
+    const $ = render(<ProfileGeneral monster={monster} />);
+    assert({
+      given: 'a monster without languages',
+      should,
+      actual: $('.ProfileGeneral-languages').length,
+      expected: 0
+    });
+  }
+
+  {
+    const should = 'render a languages entry';
+    const monster = {languages: 'Common, Draconic; telepathy 100 feet'};
+    const $ = render(<ProfileGeneral monster={monster} />);
+    assert({
+      given: 'a monster with languages',
+      should,
+      actual: $('.ProfileGeneral-languages').text(),
+      expected: ['Languages', `${monster.languages}`].join('')
     });
   }
 

@@ -632,4 +632,27 @@ describe('MonsterBuilderForm component', async assert => {
     });
   }
 
+  // languages
+  {
+    const should = 'render a languages sub-section';
+    const $ = render(<MonsterBuilderForm />);
+    assert({
+      given: 'no arguments',
+      should,
+      actual: $('section.General section.languages').length,
+      expected: 1
+    });
+  }
+
+  {
+    const should = 'render the languages prop';
+    const monster = {languages: 'common, tongues'};
+    const $ = render(<MonsterBuilderForm monster={monster} onChange={()=>{}} />);
+    assert({
+      given: 'a monster with languages',
+      should,
+      actual: $('section.General input[name=languages]').val(),
+      expected: `${monster.languages}`
+    });
+  }
 });

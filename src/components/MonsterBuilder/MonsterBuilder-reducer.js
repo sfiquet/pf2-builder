@@ -17,6 +17,7 @@ const initialState = {
   },
   perception: {scale: 'Moderate', value: 0},
   senses: '',
+  languages: '',
 };
 
 const createInputReducer = (reducerName, initValue) => {
@@ -74,6 +75,7 @@ const ChaReducer = createScaleReducer('Cha', {scale: 'Moderate', value: 0});
 
 const perceptionReducer = createScaleReducer('Perception', {scale: 'Moderate', value: 0});
 const sensesReducer = createInputReducer('senses', '');
+const languagesReducer = createInputReducer('languages', '');
 
 const reducer = (state = initialState, action = {}) => {
   return {
@@ -92,6 +94,7 @@ const reducer = (state = initialState, action = {}) => {
     },
     perception: perceptionReducer(state.perception, action),
     senses: sensesReducer(state.senses, action),
+    languages: languagesReducer(state.languages, action),
   };
 };
 
